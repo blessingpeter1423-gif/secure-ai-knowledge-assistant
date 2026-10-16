@@ -8,3 +8,6 @@ app.db
 *.db
 .pytest_cache/
 notebooks/.ipynb_checkpoints/
+
+data/raw/acme/
+data/raw/globex/
