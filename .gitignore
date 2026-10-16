@@ -1,0 +1,10 @@
+venv/
+.env
+__pycache__/
+*.pyc
+data/processed/
+
+app.db
+*.db
+.pytest_cache/
+notebooks/.ipynb_checkpoints/
