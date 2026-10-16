@@ -24,7 +24,7 @@ client = chromadb.PersistentClient(
 # 3. Get document collection
 # --------------------------------------------------
 
-collection = client.get_collection(
+collection = client.get_or_create_collection(
     name="company_documents"
 )
 
