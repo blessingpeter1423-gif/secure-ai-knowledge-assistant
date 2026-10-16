@@ -1,0 +1,24 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      JWT_SECRET_KEY: ci-only-not-a-real-secret
+      GEMINI_API_KEY: dummy-not-a-real-key
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - name: Install CPU-only torch first (avoids the huge CUDA build)
+        run: pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -r requirements.txt
+      - name: Set up database and sample data
+        run: |
+          python -m app.init_db
+          python -m app.seed_database
+          python -m app.seed_users
+          python -m app.retrieval.vector_store
+      - run: python -m pytest -q --tb=short
